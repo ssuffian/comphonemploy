@@ -1,0 +1,8 @@
+fromaddr: 'example_email@gmail.com'
+username: 'example_email@gmail.com'
+password: 'example_password'
+phone_number_demo: '111-555-5555'
+toaddrs_demo: '1115555555@vtext.com'
+postgres_username: 'postgres_username'
+postgres_password: 'postgres_password'
+postgres_db: 'postgres_db_name'
