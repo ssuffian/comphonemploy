@@ -29,3 +29,9 @@ sudo pip install apscheduler
 sudo pip install pyyaml  
   
 Rename config-example.yaml config.yaml and change variables appropriately.  
+
+Setup
+For postgres, run the following script to create the tables
+(you must first create a username, password, and database and put it
+in your yaml):
+python setup_schema.py
