@@ -25,6 +25,7 @@ users_table = Table('users', metadata,
                         Column('email_address', String),
                         Column('phone_number', String, primary_key=True,nullable=False),
                         Column('search_criteria', String, nullable=False), 
+                        Column('posts_sent_count',Integer)
                         )
 # create or drops tables in database
 

@@ -30,8 +30,13 @@ sudo pip install pyyaml
   
 Rename config-example.yaml config.yaml and change variables appropriately.  
 
-Setup
-For postgres, run the following script to create the tables
-(you must first create a username, password, and database and put it
-in your yaml):
+Postgres Setup
+
+sudo apt-get install postgresql postgresql-contrib
+sudo -u postgres psql postgres
+create user 'user';
+\password 'user';
+grant all privileges on database 'database' to 'user';
+\q
+
 python setup_schema.py
