@@ -117,7 +117,7 @@ def form_text(post):
 
 def create_df(directory,search_term):
     posts={}
-    search_directory = directory + search_term + '/'
+    search_directory = directory + '/' + search_term + '/'
     for filename in glob.glob(search_directory+'*'):
         f = open(filename,'r')
         soup = BeautifulSoup(f.read())
