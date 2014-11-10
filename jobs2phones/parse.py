@@ -8,7 +8,6 @@ import pandas as pd
 from urllib2 import urlopen,Request  # for Python 3: from urllib.request import urlopen
 import difflib
 import time
-from apscheduler.schedulers.blocking import BlockingScheduler
 import yaml
 with open('../config.yaml') as f:
     cf = yaml.safe_load(f)
