@@ -1,5 +1,4 @@
 import feedparser
-import smtplib
 import logging
 from bs4 import BeautifulSoup
 import re
@@ -117,12 +116,13 @@ def form_text(post):
     text = phone_number+';'+pay+address+post['title']
     return text[:160]
 
-def create_df(directory):
+def create_df(directory,search_term):
     posts={}
-    for filename in glob.glob(directory+'*'):
+    search_directory = directory + search_term + '/'
+    for filename in glob.glob(search_directory+'*'):
         f = open(filename,'r')
         soup = BeautifulSoup(f.read())
-        post_id = filename[len(directory):filename.index('.html')]
+        post_id = filename[len(search_directory):filename.index('.html')]
         post ={}
         post['post_id']=post_id
         post['soup']=soup
@@ -135,6 +135,7 @@ def create_df(directory):
         post['phone_number']=parse_phone_number(body_string)
         post['text'] = form_text(post)
         post['new']=True
+        post['search_term']=search_term
         posts[post_id]=post
     df = pd.DataFrame(posts).T
     return df
@@ -147,36 +148,8 @@ def get_valid_texts(df):
             df_new=df_new[df_new.index != row[0]]
     return df_new
 
-
-def send_mail(to_address,msg):
-    from_address = cf['fromaddr']
-    # Credentials (if needed)
-    username = cf['username']
-    password = cf['password']
-
-    # The actual mail send
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.starttls()
-    server.login(username,password)
-    server.sendmail(from_address, to_address, msg)
-    server.quit()
-
-
-#Executing of Code
-def execute_compemploy():
-    read_rss_and_load(search_type,search_term,directory)
+def parse_and_load_directory_into_database(directory):
     df = create_df(directory)
     df_valid = get_valid_texts(df)
-    msg = str(df_valid['text'][len(df_valid)-1])
-    practice = ('Sent message: ' + msg + '... with post_id ' +
-            df_valid['post_id'][len(df_valid)-1]+' posted on ' +
-            df_valid['date_posted'][len(df_valid)-1])
-    logging.info(practice)
-    send_mail(to_address,practice)
+    load_data(df_valid)
 
-scheduler = BlockingScheduler()
-scheduler.add_job(execute_compemploy,'interval',seconds=15)
-try:
-    scheduler.start()
-except (KeyboardInterrupt, SystemExit):
-    pass
