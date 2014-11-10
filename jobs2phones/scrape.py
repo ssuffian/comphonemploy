@@ -6,7 +6,7 @@ import os
 from urllib2 import urlopen,Request  # for Python 3: from urllib.request import urlopen
 
 def read_rss_and_load(search_type,search_term,directory):
-    search_directory = directory + search_term + '/'
+    search_directory = directory + '/' + search_term + '/'
     clist_rss = 'http://philadelphia.craigslist.org/search/'+search_type+'?query='+search_term+'&s=0&format=rss'
     feed = feedparser.parse(clist_rss)
     link_name=feed['entries'][0].id
