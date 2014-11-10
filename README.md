@@ -35,11 +35,16 @@ Rename config-example.yaml config.yaml and change variables appropriately.
 
 Postgres Setup
 
-sudo apt-get install postgresql postgresql-contrib
-sudo -u postgres psql postgres
-create user 'user';
-\password 'user';
-grant all privileges on database 'database' to 'user';
-\q
+- sudo apt-get install postgresql postgresql-contrib
+- sudo -u postgres psql postgres
+- create user 'user';
+- \password 'user';
+- grant all privileges on database 'database' to 'user';
+- \q
+- python setup_schema.py
 
-python setup_schema.py
+To log into this new user without creating a system user:
+- sudo vim /etc/postgres/9.3/main/pg_hba.conf
+- Change 'peer' to 'md5'
+- sudo service postgresql restart
+
