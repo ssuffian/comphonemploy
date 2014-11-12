@@ -1,23 +1,25 @@
 #Computer To Phone To Employment
 
 ###The first goal of this code is to allow people to receive notifications from job posting sites that are filtered to those respondable by phone.
-- C1. Read postings through RSS
-- C2. Classify posting as respondable by phone or not
-- C3. Filter posting to fit in a single text message
-- C4. Send text message to appropriate users
+-  Read postings through RSS
+-  Classify posting as respondable by phone or not
+-  Filter posting to fit in a single text message
+-  Send text message to appropriate users
 
 ###The second goal of this code is to allow people to receive forwarded emails to their phone in a filtered text.
 
-- E1. Ingest forwarded email
-- E2. Filter email to fit in single text message
-- E3. Send text message
+-  Ingest forwarded email
+-  Filter email to fit in single text message
+-  Send text message
 
 These two applications will allow those without smartphones to be able to get real-time notifications of events that previously required frequent checking of the computer. The hope is to make the playing ground between smartphone users and normal phone users more even when it comes to applying for jobs.
 
 ###Todo
-- C3 - Better filtering for phone numbers, pay, etc.
-- C4 - System for inputting phone numbers for certain search terms
-- E - Have not worked on any of the email to phone yet.
+-  - Better filtering for phone numbers, pay, etc.
+-  - System for inputting users
+-  - Additional job sources
+-  - Include posts that are in-person (don't require email, but aren't necessarily phone)
+-  - Have not worked on any of the email to phone yet.
 
 ###Installation
 sudo apt-get install python-pip  
@@ -43,8 +45,11 @@ Postgres Setup
 - \q
 - python setup_schema.py
 
-To log into this new user without creating a system user:
+To log into postgres as this new user without also having to create a system user:
 - sudo vim /etc/postgres/9.3/main/pg_hba.conf
 - Change 'peer' to 'md5'
 - sudo service postgresql restart
 
+## Contact
+Stephen Suffian
+contact@jobs2phones.com
