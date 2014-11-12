@@ -35,15 +35,15 @@ sudo pip install psycopg2
 
 Rename config-example.yaml config.yaml and change variables appropriately.  
 
-Postgres Setup
+###Postgres Setup
 
-- sudo apt-get install postgresql postgresql-contrib
-- sudo -u postgres psql postgres
-- create user 'user';
-- \password 'user';
-- grant all privileges on database 'database' to 'user';
-- \q
-- python setup_schema.py
+sudo apt-get install postgresql postgresql-contrib
+sudo -u postgres psql postgres
+create user 'user';
+\password 'user';
+grant all privileges on database 'database' to 'user';
+\q
+python setup_schema.py
 
 To log into postgres as this new user without also having to create a system user:
 - sudo vim /etc/postgres/9.3/main/pg_hba.conf
