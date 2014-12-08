@@ -37,8 +37,9 @@ Rename config-example.yaml config.yaml and change variables appropriately.
 
 ###Postgres Setup
 
-sudo apt-get install postgresql postgresql-contrib  
+sudo apt-get install postgresql postgresql-contrib php5-pgsql  
 sudo -u postgres psql postgres  
+create database 'database';
 create user 'user';  
 \password 'user';  
 grant all privileges on database 'database' to 'user';  
