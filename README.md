@@ -43,6 +43,10 @@ To log into postgres as this new user without also having to create a system use
 - Change 'peer' to 'md5'
 - sudo service postgresql restart
 
+###Running The Program
+scheduler.py is the python script that runs the program. There is a line in that python file with a parameter for setting how often to schedule the process.
+
+'python scheduler.py &' will run the process in the background.
 ## Contact
 Stephen Suffian
 contact@jobs2phones.com
