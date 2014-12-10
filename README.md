@@ -22,16 +22,8 @@ These two applications will allow those without smartphones to be able to get re
 -  Have not worked on any of the email to phone yet.
 
 ###Installation
-sudo apt-get install python-pip  
-sudo apt-get install python-dev  
-sudo apt-get install postgresql-server-dev-all 
-sudo pip install feedparser  
-sudo pip install beautifulsoup4  
-sudo pip install pandas  
-sudo pip install apscheduler  
-sudo pip install pyyaml  
-sudo pip install sqlalchemy
-sudo pip install psycopg2
+sudo apt-get install python-pip python-dev postgresql-server-dev-all  
+sudo pip install feedparser beautifulsoup4 pandas apscheduler pyyaml sqlalchemy psycopg2
 
 Rename config-example.yaml config.yaml and change variables appropriately.  
 
