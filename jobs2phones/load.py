@@ -30,28 +30,52 @@ class User(Base):
     search_criteria = Column('search_criteria', String, nullable=False)
     posts_sent_count = Column('posts_sent_count',Integer)
 
-
 class UserInserter(object):
-    def insert(self,session,email_address,phone_number,password,search_criteria):
-        if len(session.query(User).filter(User.phone_number==phone_number).all())==0:
-            new_user = User(email_address=email_address, phone_number=phone_number,password=password,
-                        search_criteria=search_criteria,posts_sent_count=0)
+    def insert(self,session,email_address,phone_number,
+            password,search_criteria):
+        if len(session.query(User).
+                filter(User.phone_number==phone_number).all())==0:
+            new_user = User(email_address=email_address,
+                    phone_number=phone_number,password=password,
+                    search_criteria=search_criteria,posts_sent_count=0)
             session.merge(new_user)
+
+class UserEditer(object):
+    def edit(self,session,phone_number,search_criteria):
+        user = session.query(User).filter(User.phone_number==phone_number)[0]
+        user.search_criteria = search_criteria
+        session.merge(user)
+
+class UserDeleter(object):
+    def delete(self,session,phone_number):
+        user = session.query(User).filter(User.phone_number==phone_number)[0]
+        session.delete(user)
+
+class UserExistChecker(object):
+    def check(self,session,phone_number):
+        if session.query(User).filter(User.phone_number==phone_number).count() == 0:
+            return False
+        else:
+            return True
 
 class UserReader(object):
     def read(self,session, search_criteria):
         users = []
-        for i,user in enumerate(session.query(User).filter(User.search_criteria==search_criteria)):
+        for i,user in enumerate(session.query(User).filter(User.
+            search_criteria==search_criteria)):
             users.append(user.phone_number)
         return users
 
 class PostInserter(object):
     def insert(self,session,row):
         if len(session.query(Post).filter(Post.id==row['post_id']).all())==0:
-            new_post = Post(id=row['post_id'], address=row['address'], body=row['body'],
-                     date_posted=datetime.datetime.strptime(row['date_posted'], "%Y-%m-%d %I:%M%p") ,
-                     pay=row['pay'],phone_number=row['phone_number'], new=row['new'], text=row['text'],
-                     search_criteria=row['search_term'])
+            new_post = Post(id=row['post_id'], address=row['address'],
+                    body=row['body'],
+                    date_posted=datetime.datetime.strptime(row['date_posted'],
+                        "%Y-%m-%d %I:%M%p") ,
+                    pay=row['pay'],phone_number=row['phone_number'],
+                    new=row['new'], text=row['text'],
+                    search_criteria=row['search_term'])
             session.add(new_post)
 
 class PostReader(object):
@@ -103,9 +127,22 @@ def read_interested_users(Session,search_criteria):
     with session_scope(Session) as session:
         return UserReader().read(session,search_criteria)
 
+def check_user(Session,phone_number):
+        with session_scope(Session) as session:
+                    return UserExistChecker().check(session,phone_number)
+
 def insert_user(Session,email_address,phone_number,password,search_criteria):
     with session_scope(Session) as session:
-        UserInserter().insert(session,email_address,phone_number,password,search_criteria)
+        UserInserter().insert(session,email_address,
+                phone_number,password,search_criteria)
+
+def edit_user(Session,phone_number,search_criteria):
+        with session_scope(Session) as session:
+            return UserEditer().edit(session,phone_number,search_criteria)
+
+def delete_user(Session,phone_number):
+        with session_scope(Session) as session:
+            return UserDeleter().delete(session,phone_number)
 
 def increment_posts_sent_count(Session,phone_number):
     with session_scope(Session) as session:
