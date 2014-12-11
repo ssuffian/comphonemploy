@@ -1,3 +1,4 @@
+#This repository has been moved to https://github.com/jobs2phones/j2p so it can be an organization and have a github pages hosted website. This repository will no longer be updated.
 #Computer To Phone To Employment
 
 ###The first goal of this code is to allow people to receive notifications from job posting sites that are filtered to those respondable by phone.
